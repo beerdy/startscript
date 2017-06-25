@@ -36,10 +36,13 @@ FileUtils.mkdir_p "/var/www/php/#{domainname_folder}/htdocs"
 
 common_template.gsub! /domainnamefolder/, domainname_folder
 #puts common_template
-File.write "/etc/nginx/common.conf/#{domainname_folder}.conf", common_template
+File.write "/etc/nginx/common.conf/php/#{domainname_folder}.conf", common_template
 #puts "==================="
 
 available_template.gsub! /domainnameadress/, domainname
 available_template.gsub! /domainnamefolder/, domainname_folder
 #puts available_template
-File.write "/etc/nginx/sites-available/#{domainname_folder}", available_template
+available_site = "/etc/nginx/sites-available/php/#{domainname_folder}"
+File.write available_site, available_template
+
+`ln -s #{available_site} /etc/nginx/sites-enabled/php/#{domainname_folder}`
