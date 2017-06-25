@@ -1,0 +1,2 @@
+gem 'simpleidn'
+gem 'russian'

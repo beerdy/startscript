@@ -1,0 +1,6 @@
+server {
+    listen 80;
+    server_name domainnameadress www.domainnameadress;
+    root /var/www/php/domainnamefolder/htdocs;
+    include /etc/nginx/common.conf/domainnamefolder.conf;
+}
