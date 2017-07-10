@@ -1,3 +1,1 @@
-b = '/'
-a = `ls ..#{b}`
-p a
+puts ('-2h2ayWORDst3-ack.ru_').gsub(/[^a-zA-Z\d]/, '').downcase

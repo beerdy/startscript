@@ -34,18 +34,23 @@ else
 end 
 
 FileUtils.mkdir_p "/var/www/#{interpreter}/#{domainname_folder}/log/nginx"
-FileUtils.mkdir_p "/var/www/#{interpreter}/#{domainname_folder}/log/rails/puma" if interpreter=='rails'
 FileUtils.mkdir_p "/var/www/#{interpreter}/#{domainname_folder}/htdocs"
 
 common_template.gsub! /domainnamefolder/, domainname_folder
-#puts common_template
-File.write "/etc/nginx/common.conf/#{interpreter}/#{domainname_folder}.conf", common_template
-#puts "==================="
-
 available_template.gsub! /domainnameadress/, domainname
 available_template.gsub! /domainnamefolder/, domainname_folder
-#puts available_template
+
+if interpreter=='rails'
+  FileUtils.mkdir_p "/var/www/#{interpreter}/#{domainname_folder}/log/rails/puma"
+  #chane regular for start by word
+  domain_proxy = domainname_folder.gsub(/[a-zA-Z\d]/, '').downcase
+  available_template.gsub! /domainproxy/, domain_proxy
+  common_template.gsub! /domainproxy/, domain_proxy
+end
+
 available_site = "/etc/nginx/sites-available/#{interpreter}/#{domainname_folder}"
+
+File.write "/etc/nginx/common.conf/#{interpreter}/#{domainname_folder}.conf", common_template
 File.write available_site, available_template
 
 `ln -s #{available_site} /etc/nginx/sites-enabled/#{interpreter}/#{domainname_folder}`

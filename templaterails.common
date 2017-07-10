@@ -1,0 +1,17 @@
+
+# Logging --
+access_log /var/www/rails/domainnamefolder/log/nginx/access.log;
+error_log /var/www/rails/domainnamefolder/log/nginx/error.log notice;
+
+try_files $uri/index.html $uri @domainproxy;
+
+location @domainproxy {
+<------>proxy_read_timeout 300;
+<------>proxy_pass http://domainproxy;
+<------>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+<------>proxy_set_header Host $http_host;
+<------>proxy_redirect off;
+}
+
+error_page 500 502 503 504 /500.html;
+keepalive_timeout 10;

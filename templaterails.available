@@ -1,0 +1,11 @@
+upstream domainproxy {
+    server unix:/var/www/rails/domainnamefolder/htdocs/shared/sockets/puma.sock fail_timeout=0;
+}
+
+server {
+    listen 80;
+    client_max_body_size 10M;
+    server_name domainnameadress www.domainnameadress;
+    root /var/www/rails/domainnamefolder/htdocs/public;
+    include /etc/nginx/common.conf/rails/domainnamefolder.conf;
+}
