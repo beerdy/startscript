@@ -1,2 +1,1 @@
-gem 'simpleidn'
 gem 'russian'
