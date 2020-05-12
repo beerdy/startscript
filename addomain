@@ -40,7 +40,7 @@ common_template.gsub! /domainnamefolder/, domainname_folder
 available_template.gsub! /domainnameadress/, domainname
 available_template.gsub! /domainnamefolder/, domainname_folder
 
-if interpreter=='rails'
+if interpreter=='rails' or interpreter=='rails5'
   FileUtils.mkdir_p "/var/www/#{interpreter}/#{domainname_folder}/log/rails/puma"
   #chane regular for start by word
   domain_proxy = domainname_folder.gsub(/[^a-zA-Z\d]/, '').downcase
